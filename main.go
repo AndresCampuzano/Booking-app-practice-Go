@@ -13,41 +13,54 @@ func main() {
 	fmt.Printf("We have %v tickets remaining and %v tickets are available.\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get you tickets here to attend.")
 
-	var bookings []string
+	// Bookings structure
+	type Bookings struct {
+		FirstName string
+		LastName  string
+		Email     string
+		Tickets   int
+	}
 
-	var firstName string
-	var lastName string
-	var email string
-	var userTickets int
+	var bookings []Bookings
 
-	// get user information
-	fmt.Println("Please enter your name:")
-	fmt.Scan(&firstName)
+	for remainingTickets > 0 {
 
-	fmt.Println("Please enter your last name:")
-	fmt.Scan(&lastName)
+		var firstName string
+		var lastName string
+		var email string
+		var userTickets int
 
-	fmt.Println("Please enter your email:")
-	fmt.Scan(&email)
+		// Gets the user information
+		fmt.Println("Please enter your name:")
+		fmt.Scan(&firstName)
 
-	fmt.Println("Please enter the number of tickets:")
-	fmt.Scan(&userTickets)
+		fmt.Println("Please enter your last name:")
+		fmt.Scan(&lastName)
 
-	// update remaining tickets
-	remainingTickets = remainingTickets - userTickets
+		fmt.Println("Please enter your email:")
+		fmt.Scan(&email)
 
-	// add user to bookings
-	bookings = append(bookings, firstName+" "+lastName)
+		fmt.Println("Please enter the number of tickets:")
+		fmt.Scan(&userTickets)
 
-	// print user information
-	fmt.Printf("Hello %v %v, welcome to %v\n", firstName, lastName, conferenceName)
-	fmt.Printf("You have booked %v tickets\n", userTickets)
-	fmt.Printf("A confirmation email has been sent to %v\n", email)
+		// Updates remaining tickets
+		remainingTickets = remainingTickets - userTickets
 
-	// print remaining tickets
-	fmt.Printf("We have %v tickets remaining\n", remainingTickets)
+		// Adds a new user object to bookings slice
+		bookings = append(bookings, Bookings{firstName, lastName, email, userTickets})
 
-	// print total bookings
-	fmt.Printf("We have %v bookings\n", len(bookings))
+		// Prints user information
+		fmt.Printf("Hello %v %v, welcome to %v\n", firstName, lastName, conferenceName)
+		fmt.Printf("You have booked %v tickets\n", userTickets)
+		fmt.Printf("A confirmation email has been sent to %v\n", email)
 
+		// Prints remaining tickets
+		fmt.Printf("We have %v tickets remaining\n", remainingTickets)
+
+		// Prints total bookings
+		fmt.Printf("We have %v bookings\n", len(bookings))
+	}
+
+	// Prints all bookings
+	fmt.Println("All bookings:", bookings)
 }
